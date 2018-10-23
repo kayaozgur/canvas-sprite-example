@@ -1,55 +1,67 @@
 function oyun() {
 
     const canvas = document.querySelector('canvas');
-    canvas.width = 800;
+    canvas.width = innerWidth-15;
     canvas.height = 300;
     canvas.style.border = 'solid';
 
     const c = canvas.getContext('2d');
-
-    let x = 0;
-    let y = 50;
-    let adamX = 0;
-    let adamY = 0;
-    let adamW = 864;
-    let adamH = 280;
-    let width = adamW/8;
-    let height = adamH / 2;
-    let currentFrame = 0;
-    let cols = 8;
-    let sayac = 0;
-    let hareket = 1.5;
-   
-
-    let adam = new Image();
-    adam.src = 'image/adam.png';
-
-
     
-    function draw() {
-        if(x + width/2 >= canvas.width || x < 0) {
-            hareket = -hareket;
-            if(hareket < 0) adamY = 1;
-            else adamY = 0;
+    let Caracter = function() {
+        this.adam = new Image();
+        this.adam.src = 'image/adam.png';
+
+        this.x = 0;
+        this.y = 50;
+        this.adamX = 0;
+        this.adamY = 0;
+        this.adamW = 864;
+        this.adamH = 280;
+        this.width = this.adamW / 8;
+        this.height = this.adamH / 2;
+        this.currentFrame = 0;
+        this.cols = 8;
+        this.sayac = 0;
+        this.hareket = 1.15;
+    
+    
+    
+    
+        this.update = function () {
+    
+            if (this.x + this.width / 2 >= canvas.width || this.x < 0) {
+                this.hareket = -this.hareket;
+                if (this.hareket < 0) this.adamY = 1;
+                else this.adamY = 0;
+    
+            }
+            this.sayac++;
+            if (this.sayac >= 7) {
+                this.draw();
+                this.sayac = 0;
+    
+            }
+            this.x += this.hareket;
+    
             
         }
-        sayac++;
-
-        if(sayac >= 7) {
-
+    
+        this.draw = function () {
+    
             c.clearRect(0, 0, canvas.width, canvas.height);
     
-            c.drawImage(adam, adamX, adamY*height,width, height, x, y, width/2, height/2);
-            currentFrame = ++currentFrame % cols;
-            adamX = currentFrame * width;
-            sayac = 0;
-            
+            c.drawImage(this.adam, this.adamX, this.adamY * this.height, this.width, this.height, this.x, this.y, this.width / 2, this.height / 2);
+            this.currentFrame = ++this.currentFrame % this.cols;
+            this.adamX = this.currentFrame * this.width;
+    
         }
-        
-        x += hareket;
     }
 
-let game = setInterval(draw, 1000 / 60);
+    let caracter = new Caracter();
+    function play() {
+        caracter.update();
+    }
+    setInterval(play,1000/60);
 
 
 }
