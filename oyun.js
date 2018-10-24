@@ -8,6 +8,30 @@ canvas.style.border = 'solid';
 
 const c = canvas.getContext('2d');
 
+const keyStatu = [false,false,false,false];
+
+
+
+    document.addEventListener('keydown',tuson)
+     function tuson(e) {
+        if(e.keyCode == 37) {  keyStatu[0] = true;  }
+        if(e.keyCode == 38) {  keyStatu[1] = true;  }
+        if(e.keyCode == 39) {  keyStatu[2] = true;  }
+        if(e.keyCode == 40) {  keyStatu[3] = true;  }
+    };
+
+    document.addEventListener('keyup', tusoff)
+    function tusoff(e) {
+        if(e.keyCode == 37) {  keyStatu[0] = false;  }
+        if(e.keyCode == 38) {  keyStatu[1] = false;  }
+        if(e.keyCode == 39) {  keyStatu[2] = false;  }
+        if(e.keyCode == 40) {  keyStatu[3] = false;  }
+    };
+    
+
+
+
+
 
 let Caracter = function() {
     this.adam = new Image();
@@ -27,38 +51,55 @@ let Caracter = function() {
     this.hareket = 1.15;
     
     this.update = function () {
+        c.drawImage(this.adam, this.adamX, this.adamY * this.height, this.width, this.height, this.x, this.y, this.width / 2, this.height / 2);
         
-        if (this.x + this.width / 2 >= canvas.width || this.x < 0) {
-            this.hareket = -this.hareket;
-            if (this.hareket < 0) this.adamY = 1;
-            else this.adamY = 0;
-            
-        }
-        this.sayac++;
-        if (this.sayac >= 7) {
+        if (keyStatu[0]) {
+            this.x -=3;
+            this.adamY = 1;
             this.draw();
-            this.sayac = 0;
             
         }
-        this.x += this.hareket;
+        
+        if (keyStatu[1]) {
+            this.y -=3;
+            this.adamY = 0;
+            this.draw();
+        }
+        
+        if (keyStatu[2]) {
+            this.x +=3;
+            this.adamY = 0;
+            this.draw();
+        }
+        
+        if (keyStatu[3]) {
+            this.y +=3;
+            this.adamY = 0;
+            this.draw();
+        }
+        
+        
         
         
     }
     
     this.draw = function () {
-        
-        c.clearRect(0, 0, canvas.width, canvas.height);
-        
-        c.drawImage(this.adam, this.adamX, this.adamY * this.height, this.width, this.height, this.x, this.y, this.width / 2, this.height / 2);
-        this.currentFrame = ++this.currentFrame % this.cols;
-        this.adamX = this.currentFrame * this.width;
+        this.sayac++;
+        if(this.sayac >=5) {
+            c.drawImage(this.adam, this.adamX, this.adamY * this.height, this.width, this.height, this.x, this.y, this.width / 2, this.height / 2);
+            this.currentFrame = ++this.currentFrame % this.cols;
+            this.adamX = this.currentFrame * this.width;
+            this.sayac = 0;
+        }
         
     }
 }
 let icon = new Caracter();
-console.log(icon);
+
+
 
 function play() {
+    c.clearRect(0, 0, canvas.width, canvas.height);
     icon.update();
 }
 setInterval(play, 1000 / 60);
