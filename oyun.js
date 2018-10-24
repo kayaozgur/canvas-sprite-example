@@ -1,37 +1,29 @@
 
-
-
 const canvas = document.querySelector('canvas');
-canvas.width = innerWidth - 15;
-canvas.height = 300;
+canvas.width = innerWidth - 40;
+canvas.height = innerHeight -40;
 canvas.style.border = 'solid';
 
 const c = canvas.getContext('2d');
 
 const keyStatu = [false,false,false,false];
 
-
-
-    document.addEventListener('keydown',tuson)
-     function tuson(e) {
+document.addEventListener('keydown',tusdown)
+function tusdown(e) {
         if(e.keyCode == 37) {  keyStatu[0] = true;  }
         if(e.keyCode == 38) {  keyStatu[1] = true;  }
         if(e.keyCode == 39) {  keyStatu[2] = true;  }
         if(e.keyCode == 40) {  keyStatu[3] = true;  }
-    };
+};
 
-    document.addEventListener('keyup', tusoff)
-    function tusoff(e) {
+document.addEventListener('keyup', tusup)
+function tusup(e) {
         if(e.keyCode == 37) {  keyStatu[0] = false;  }
         if(e.keyCode == 38) {  keyStatu[1] = false;  }
         if(e.keyCode == 39) {  keyStatu[2] = false;  }
         if(e.keyCode == 40) {  keyStatu[3] = false;  }
-    };
+};
     
-
-
-
-
 
 let Caracter = function() {
     this.adam = new Image();
