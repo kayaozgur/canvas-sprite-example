@@ -45,27 +45,55 @@ let Caracter = function() {
     this.update = function () {
         c.drawImage(this.adam, this.adamX, this.adamY * this.height, this.width, this.height, this.x, this.y, this.width / 2, this.height / 2);
         
-        if (keyStatu[0]) {
+        if (keyStatu[0] && !keyStatu[1] && !keyStatu[2] && !keyStatu[3]) {
             this.x -=3;
             this.adamY = 1;
             this.draw();
             
         }
         
-        if (keyStatu[1]) {
+        if (!keyStatu[0] && keyStatu[1] && !keyStatu[2] && !keyStatu[3]) {
             this.y -=3;
             this.adamY = 0;
             this.draw();
         }
         
-        if (keyStatu[2]) {
+        if (!keyStatu[0] && !keyStatu[1] && keyStatu[2] && !keyStatu[3]) {
             this.x +=3;
             this.adamY = 0;
             this.draw();
         }
         
-        if (keyStatu[3]) {
+        if (!keyStatu[0] && !keyStatu[1] && !keyStatu[2] && keyStatu[3]) {
             this.y +=3;
+            this.adamY = 0;
+            this.draw();
+        }
+
+        if (keyStatu[0] && keyStatu[1] && !keyStatu[2] && !keyStatu[3]) {
+            this.y -=3;
+            this.x -=3;
+            this.adamY = 1;
+            this.draw();
+        }
+
+        if (keyStatu[0] && !keyStatu[1] && !keyStatu[2] && keyStatu[3]) {
+            this.y +=3;
+            this.x -=3;
+            this.adamY = 1;
+            this.draw();
+        }
+
+        if (!keyStatu[0] && keyStatu[1] && keyStatu[2] && !keyStatu[3]) {
+            this.y -=3;
+            this.x +=3;
+            this.adamY = 0;
+            this.draw();
+        }
+
+        if (!keyStatu[0] && !keyStatu[1] && keyStatu[2] && keyStatu[3]) {
+            this.y +=3;
+            this.x +=3;
             this.adamY = 0;
             this.draw();
         }
