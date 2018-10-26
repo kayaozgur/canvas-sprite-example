@@ -27,74 +27,74 @@ function tusup(e) {
 
 let Caracter = function() {
     this.adam = new Image();
-    this.adam.src = 'image/adam.png';
+    this.adam.src = 'image/avci.png';
     
     this.x = 0;
     this.y = 50;
     this.adamX = 0;
     this.adamY = 0;
-    this.adamW = 864;
-    this.adamH = 280;
+    this.adamW = 768;
+    this.adamH = 768;
     this.width = this.adamW / 8;
-    this.height = this.adamH / 2;
+    this.height = this.adamH / 8;
     this.currentFrame = 0;
     this.cols = 8;
     this.sayac = 0;
-    this.hareket = 1.15;
+    this.hareket = 2;
     
     this.update = function () {
-        c.drawImage(this.adam, this.adamX, this.adamY * this.height, this.width, this.height, this.x, this.y, this.width / 2, this.height / 2);
+        c.drawImage(this.adam, this.adamX, this.adamY * this.height, this.width, this.height, this.x, this.y, this.width /1.2, this.height/1.2);
         
         if (keyStatu[0] && !keyStatu[1] && !keyStatu[2] && !keyStatu[3]) {
-            this.x -=3;
-            this.adamY = 1;
+            this.x -=this.hareket;
+            this.adamY = 7;
             this.draw();
             
         }
         
         if (!keyStatu[0] && keyStatu[1] && !keyStatu[2] && !keyStatu[3]) {
-            this.y -=3;
-            this.adamY = 0;
+            this.y -=this.hareket;
+            this.adamY = 1;
             this.draw();
         }
         
         if (!keyStatu[0] && !keyStatu[1] && keyStatu[2] && !keyStatu[3]) {
-            this.x +=3;
+            this.x +=this.hareket;
             this.adamY = 0;
             this.draw();
         }
         
         if (!keyStatu[0] && !keyStatu[1] && !keyStatu[2] && keyStatu[3]) {
-            this.y +=3;
-            this.adamY = 0;
+            this.y +=this.hareket;
+            this.adamY = 4;
             this.draw();
         }
 
         if (keyStatu[0] && keyStatu[1] && !keyStatu[2] && !keyStatu[3]) {
-            this.y -=3;
-            this.x -=3;
-            this.adamY = 1;
+            this.y -=this.hareket;
+            this.x -=this.hareket;
+            this.adamY = 3;
             this.draw();
         }
 
         if (keyStatu[0] && !keyStatu[1] && !keyStatu[2] && keyStatu[3]) {
-            this.y +=3;
-            this.x -=3;
-            this.adamY = 1;
+            this.y +=this.hareket;
+            this.x -=this.hareket;
+            this.adamY = 6;
             this.draw();
         }
 
         if (!keyStatu[0] && keyStatu[1] && keyStatu[2] && !keyStatu[3]) {
-            this.y -=3;
-            this.x +=3;
-            this.adamY = 0;
+            this.y -=this.hareket;
+            this.x +=this.hareket;
+            this.adamY = 2;
             this.draw();
         }
 
         if (!keyStatu[0] && !keyStatu[1] && keyStatu[2] && keyStatu[3]) {
-            this.y +=3;
-            this.x +=3;
-            this.adamY = 0;
+            this.y +=this.hareket;
+            this.x +=this.hareket;
+            this.adamY = 5;
             this.draw();
         }
         
@@ -105,8 +105,8 @@ let Caracter = function() {
     
     this.draw = function () {
         this.sayac++;
-        if(this.sayac >=5) {
-            c.drawImage(this.adam, this.adamX, this.adamY * this.height, this.width, this.height, this.x, this.y, this.width / 2, this.height / 2);
+        if(this.sayac >=4) {
+            c.drawImage(this.adam, this.adamX, this.adamY * this.height, this.width, this.height, this.x, this.y, this.width /1.2, this.height/1.2);
             this.currentFrame = ++this.currentFrame % this.cols;
             this.adamX = this.currentFrame * this.width;
             this.sayac = 0;
