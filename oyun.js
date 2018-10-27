@@ -39,7 +39,7 @@ var harita = [
     [0,0,0,5,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,4,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6],
     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
@@ -74,6 +74,10 @@ function haritaCiz() {
 
              if(harita[i][j] == 5){
                 c.drawImage(block,blockX+1*(blockW+1),blockY+7*(blockH+1),blockW,blockH,j*blockW,i*blockH,blockW,blockH);
+             }
+
+             if(harita[i][j] == 6){
+                c.drawImage(block,blockX+4*(blockW+1),blockY+7*(blockH+1),blockW,blockH,j*blockW,i*blockH,blockW,blockH);
              }
 
 
@@ -123,14 +127,14 @@ class Adam {
         this.height = this.adamH / this.row;
         this.currentFrame = 0;
         this.sayac = 0;
-        this.hareket = 2;
+        this.hareket = 1;
         this.update = function () {
             c.drawImage(this.adam, this.adamX, this.adamY * this.height, this.width, this.height, this.x, this.y, this.width / 1.2, this.height / 1.2);
             if (kosu) {
-                this.hareket = 4;
+                this.hareket = 3;
             }
             else {
-                this.hareket = 2;
+                this.hareket = 1;
             }
             if (keyStatu[0] && !keyStatu[1] && !keyStatu[2] && !keyStatu[3]) {
                 this.x -= this.hareket;
