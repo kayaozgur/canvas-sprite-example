@@ -6,6 +6,14 @@ canvas.height = innerHeight-30;
 canvas.style.border = 'solid';
 const c = canvas.getContext('2d');
 
+/****************Degiskenler *******************/
+
+this.avci = new Image();
+this.avci.src = 'image/avci.png';
+
+this.dusman = new Image();
+this.dusman.src = 'image/dusman.png';
+
 /**************** Harita *********************/
 var block = new Image();
 block.src = './image/map.png';
@@ -41,10 +49,10 @@ var harita = [
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6],
     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-    [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-    [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-    [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-    [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+    [1,7,1,1,1,1,1,8,1,1,1,1,1,1,1,1,1,1,7,1,1,1,1,1,1,1,8,1,1],
+    [1,1,8,1,7,1,1,1,1,8,1,1,1,1,1,1,1,1,1,1,1,1,1,7,1,1,1,1,1],
+    [1,1,1,1,1,1,1,1,1,1,1,1,7,1,1,1,1,1,1,1,1,1,1,1,1,8,1,1,1],
+    [1,1,7,1,1,1,1,8,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,7,1,1,1,1,1],
     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
 ];
 
@@ -80,6 +88,14 @@ function haritaCiz() {
                 c.drawImage(block,blockX+4*(blockW+1),blockY+7*(blockH+1),blockW,blockH,j*blockW,i*blockH,blockW,blockH);
              }
 
+             if(harita[i][j] == 7){
+                c.drawImage(block,blockX+7*(blockW+1),blockY+4*(blockH+1),blockW,blockH,j*blockW,i*blockH,blockW,blockH);
+             }
+
+             if(harita[i][j] == 8){
+                c.drawImage(block,blockX+7*(blockW+1),blockY+3*(blockH+1),blockW,blockH,j*blockW,i*blockH,blockW,blockH);
+             }
+
 
         }
 
@@ -89,117 +105,59 @@ function haritaCiz() {
 
 
 /************ Kontroller *********************/
-let keyStatu = [false,false,false,false];
-let kosu = false;
+let keyboard = [false,false,false,false,false];
+let dusmanKey = [false,false,false,false,false];
+
 
 document.addEventListener('keydown',tusdown)
 function tusdown(e) {
-        if(e.keyCode == 37) {  keyStatu[0] = true;  }
-        if(e.keyCode == 38) {  keyStatu[1] = true;  }
-        if(e.keyCode == 39) {  keyStatu[2] = true;  }
-        if(e.keyCode == 40) {  keyStatu[3] = true;  }
-        if(e.keyCode == 32) {  kosu = true;  }
+        /************Caracter kontrol tusları **********/
+        if(e.keyCode == 37) {  keyboard[0] = true;  }
+        if(e.keyCode == 38) {  keyboard[1] = true;  }
+        if(e.keyCode == 39) {  keyboard[2] = true;  }
+        if(e.keyCode == 40) {  keyboard[3] = true;  }
+        if(e.keyCode == 32) {  keyboard[4] = true;  }
+
+        /**********Dusman kontrol tuslari **********/
+        if(e.keyCode == 65) {  dusmanKey[0] = true;  }
+        if(e.keyCode == 87) {  dusmanKey[1] = true;  }
+        if(e.keyCode == 68) {  dusmanKey[2] = true;  }
+        if(e.keyCode == 83) {  dusmanKey[3] = true;  }
+        if(e.keyCode == 16) {  dusmanKey[4] = true;  }
 };
 
 document.addEventListener('keyup', tusup)
 function tusup(e) {
-        if(e.keyCode == 37) {  keyStatu[0] = false;  }
-        if(e.keyCode == 38) {  keyStatu[1] = false;  }
-        if(e.keyCode == 39) {  keyStatu[2] = false;  }
-        if(e.keyCode == 40) {  keyStatu[3] = false;  }
-        if(e.keyCode == 32) {  kosu = false;}
+     /************Adam kontrol tusları **********/
+        if(e.keyCode == 37) {  keyboard[0] = false;  }
+        if(e.keyCode == 38) {  keyboard[1] = false;  }
+        if(e.keyCode == 39) {  keyboard[2] = false;  }
+        if(e.keyCode == 40) {  keyboard[3] = false;  }
+        if(e.keyCode == 32) {  keyboard[4] = false;}
+
+        /**********Dusman kontrol tuslari **********/
+        if(e.keyCode == 65) {  dusmanKey[0] = false;  }
+        if(e.keyCode == 87) {  dusmanKey[1] = false;  }
+        if(e.keyCode == 68) {  dusmanKey[2] = false;  }
+        if(e.keyCode == 83) {  dusmanKey[3] = false;  }
+        if(e.keyCode == 16) {  dusmanKey[4] = false;  }
 };
 
-/****************** Karakter *********************/
-class Adam {
-    constructor() {
-        this.adam = new Image();
-        this.adam.src = 'image/avci.png';
-        this.x = 0;
-        this.y = 50;
-        this.adamX = 0;
-        this.adamY = 0;
-        this.adamW = 768;
-        this.adamH = 768;
-        this.cols = 8;
-        this.row = 8;
-        this.width = this.adamW / this.cols;
-        this.height = this.adamH / this.row;
-        this.currentFrame = 0;
-        this.sayac = 0;
-        this.hareket = 1;
-        this.update = function () {
-            c.drawImage(this.adam, this.adamX, this.adamY * this.height, this.width, this.height, this.x, this.y, this.width / 1.2, this.height / 1.2);
-            if (kosu) {
-                this.hareket = 3;
-            }
-            else {
-                this.hareket = 1;
-            }
-            if (keyStatu[0] && !keyStatu[1] && !keyStatu[2] && !keyStatu[3]) {
-                this.x -= this.hareket;
-                this.adamY = 7;
-                this.draw();
-            }
-            if (!keyStatu[0] && keyStatu[1] && !keyStatu[2] && !keyStatu[3]) {
-                this.y -= this.hareket;
-                this.adamY = 1;
-                this.draw();
-            }
-            if (!keyStatu[0] && !keyStatu[1] && keyStatu[2] && !keyStatu[3]) {
-                this.x += this.hareket;
-                this.adamY = 0;
-                this.draw();
-            }
-            if (!keyStatu[0] && !keyStatu[1] && !keyStatu[2] && keyStatu[3]) {
-                this.y += this.hareket;
-                this.adamY = 4;
-                this.draw();
-            }
-            if (keyStatu[0] && keyStatu[1] && !keyStatu[2] && !keyStatu[3]) {
-                this.y -= this.hareket * 0.7071067811865475;
-                this.x -= this.hareket * 0.7071067811865475;
-                this.adamY = 3;
-                this.draw();
-            }
-            if (keyStatu[0] && !keyStatu[1] && !keyStatu[2] && keyStatu[3]) {
-                this.y += this.hareket * 0.7071067811865475;
-                this.x -= this.hareket * 0.7071067811865475;
-                this.adamY = 6;
-                this.draw();
-            }
-            if (!keyStatu[0] && keyStatu[1] && keyStatu[2] && !keyStatu[3]) {
-                this.y -= this.hareket * 0.7071067811865475;
-                this.x += this.hareket * 0.7071067811865475;
-                this.adamY = 2;
-                this.draw();
-            }
-            if (!keyStatu[0] && !keyStatu[1] && keyStatu[2] && keyStatu[3]) {
-                this.y += this.hareket * 0.7071067811865475;
-                this.x += this.hareket * 0.7071067811865475;
-                this.adamY = 5;
-                this.draw();
-            }
-        };
-        this.draw = function () {
-            this.sayac++;
-            if (this.sayac >= 4) {
-                c.drawImage(this.adam, this.adamX, this.adamY * this.height, this.width, this.height, this.x, this.y, this.width / 1.2, this.height / 1.2);
-                this.currentFrame = ++this.currentFrame % this.cols;
-                this.adamX = this.currentFrame * this.width;
-                this.sayac = 0;
-            }
-        };
-    }
-}
 
 
-let icon = new Adam();
+
+
+
+let adam = new Caracter(avci,0,100,768,768,8,8,keyboard);
+let cuce = new Caracter(dusman,300,600,288,256,12,8,dusmanKey);
+
 
 function play() {
     c.clearRect(0, 0, canvas.width, canvas.height);
     haritaCiz();
-    icon.update();
+    adam.update();
+    cuce.update();
+
 }
 setInterval(play, 1000 / 60);
 
