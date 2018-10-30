@@ -149,7 +149,7 @@ function tusup(e) {
 
 
 let adam = new Caracter(avci,0,100,768,768,8,8,keyboard);
-let cuce = new Caracter(dusman,300,600,288,256,12,8,dusmanKey);
+let cuce = new Caracter(avci,300,600,768,768,8,8,dusmanKey);
 
 
 function play() {
